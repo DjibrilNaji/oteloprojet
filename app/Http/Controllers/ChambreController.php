@@ -80,7 +80,7 @@ class ChambreController extends Controller
             'nbCouchage' =>2,
             'porte' => 'B',
             'etage' => 10,
-            'idCategorie' => 1,
+            'categorie_id' => 1,
             'baignoire' => 0,
             'prixBase' => 50
         ]);
