@@ -48,22 +48,4 @@ jobs:
         run: npm install
       - name: Compile assets for production
         run: npm run production
-
-  deploy:
-    runs-on: ubuntu-latest
-  
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Deployment
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          password: ${{ secrets.SSH_PRIVATE_KEY }}
-          username: ${{ secrets.SSH_USERNAME }}
-          port: 22
-          script: |
-            cd /home/p02/najid/public_html/git/oteloprojet6/
-            git checkout -f
-            git pull
             
