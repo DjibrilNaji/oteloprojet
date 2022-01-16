@@ -62,6 +62,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           username: ${{ secrets.SSH_USERNAME }}
           script: |
-            cd /home/p02/najid/public_html/git/
+            cd /home/p02/najid/public_html/git/oteloprojet6/
             git checkout -f 
             git pull origin master
