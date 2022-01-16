@@ -64,5 +64,6 @@ jobs:
           port: 22
           script: |
             cd /home/p02/najid/public_html/git/oteloprojet6/
+            git checkout -f
             git pull
-            php artisan serv
+            
