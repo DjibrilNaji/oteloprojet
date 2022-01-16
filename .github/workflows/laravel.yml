@@ -66,3 +66,4 @@ jobs:
             cd /home/p02/najid/public_html/git/oteloprojet6/
             git checkout -f 
             git pull origin master
+            php artisan serv
