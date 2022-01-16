@@ -14,7 +14,7 @@ class ChambreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index()
     {
         $chambres = Chambre::all();
@@ -28,7 +28,7 @@ class ChambreController extends Controller
 
     public function index2(){
         $categories = Categorie::all();
-        $chambres2 = DB::select('SELECT * FROM chambre WHERE categorie_id=3 AND baignoire>0 AND prixBase<100');
+        $chambres2 = DB::select('SELECT * FROM otelo_chambre WHERE categorie_id=3 AND baignoire>0 AND prixBase<100');
         // $users = DB::select('select * from users where active = ?', [1]); // parametres pour ?
         return view('chambres2', ['chambres2' => $chambres2,'categories' => $categories]);
     }
@@ -38,24 +38,24 @@ class ChambreController extends Controller
         $id=$request->input('categorie_id');
         $categories = Categorie::all();
         // dd($id);
-        $chambres = DB::select('SELECT * FROM chambre WHERE categorie_id ='+ $id);
-        
-       
+        $chambres = DB::select('SELECT * FROM otelo_chambre WHERE categorie_id ='+ $id);
+
+
         return view('categorie', ['chambres' => $chambres,'categories' => $categories]);
     }
 
     // public function dispo()
     // {
     //     $chambres = DB::select('select chambre.id, nbCouchage, porte, etage,libelle ,baignoire from chambre inner join categories on chambre.categorie_id = categories.id
-    //     where chambre.categorie_id=? and       
+    //     where chambre.categorie_id=? and
     //    chambre.id not in (select reservation.idChambre from reservation where
     //            dateD<? or dateF>?)', [3,'2021-03-03', '2021-03-01'] );
-         
+
     //    // return view('chambres',['chambres' => $chambres]);
     //    return response()->json($chambres);
     // }
 
-    
+
 
 
     /**
