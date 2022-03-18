@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Chambre ;
-use App\Models\Categorie ;
+use App\Models\Chambre;
+use App\Models\Categorie;
 
 class ChambreController extends Controller
 {
@@ -19,43 +19,41 @@ class ChambreController extends Controller
     {
         $chambres = Chambre::all();
         $categories = Categorie::all();
-        // $categorie = Categorie::where('categorie_id',3)->firstOrFail();
-        // $chambres=$categorie ->chambres();
-        return view('chambres',['chambres' => $chambres,'categories' => $categories]);
+        return view('chambres', ['chambres' => $chambres, 'categories' => $categories]);
 
     }
 
 
-    public function index2(){
+    public function indexPart2()
+    {
         $categories = Categorie::all();
         $chambres2 = DB::select('SELECT * FROM otelo_chambre WHERE categorie_id=3 AND baignoire>0 AND prixBase<100');
         // $users = DB::select('select * from users where active = ?', [1]); // parametres pour ?
-        return view('chambres2', ['chambres2' => $chambres2,'categories' => $categories]);
+        return view('chambres2', ['chambres2' => $chambres2, 'categories' => $categories]);
     }
 
     public function indexOneCategorie(Request $request)
     {
-        $id=$request->input('categorie_id');
+        $categorie_id = $request->input('categorie_id');
         $categories = Categorie::all();
-        // dd($id);
-        $chambres = DB::select('SELECT * FROM otelo_chambre WHERE categorie_id ='+ $id);
-
-
-        return view('categorie', ['chambres' => $chambres,'categories' => $categories]);
+        $chambres2 = DB::select('select * from otelo_chambre where categorie_id = ?', [$categorie_id]); // parametres pour ?
+        return view('categorie', ['chambres2' => $chambres2, 'categories' => $categories]);
     }
 
-    // public function dispo()
-    // {
-    //     $chambres = DB::select('select chambre.id, nbCouchage, porte, etage,libelle ,baignoire from chambre inner join categories on chambre.categorie_id = categories.id
-    //     where chambre.categorie_id=? and
-    //    chambre.id not in (select reservation.idChambre from reservation where
-    //            dateD<? or dateF>?)', [3,'2021-03-03', '2021-03-01'] );
+    public function dispo(Request $request)
+    {
+        $categorie_id = $request->input('categorie_id');
+        $dateD = $request->input('dated');
+        $dateF = $request->input('datef');
 
-    //    // return view('chambres',['chambres' => $chambres]);
-    //    return response()->json($chambres);
-    // }
-
-
+        $categories = Categorie::all();
+        $disponibilite = DB::select('select id, nbCouchage, porte, etage, libelle, baignoire from otelo_chambre inner join otelo_categorie on otelo_chambre.categorie_id= otelo_categorie.categorie_id
+        where otelo_chambre.categorie_id=? and otelo_chambre.id not in (select otelo_reservation.idChambre from otelo_reservation
+        where dateD>=? and dateD<=dateF and dateF<=? and dateF>=dateD) order by id;', [$categorie_id, $dateD, $dateF]);
+//        dd($dispo);
+        return view('dispo', ['disponibilite' => $disponibilite, 'categories' => $categories]);
+//        return response()->json($chambres);
+    }
 
 
     /**
@@ -71,13 +69,13 @@ class ChambreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $chambre= Chambre::create([
-            'nbCouchage' =>2,
+        $chambre = Chambre::create([
+            'nbCouchage' => 2,
             'porte' => 'B',
             'etage' => 10,
             'categorie_id' => 1,
@@ -85,15 +83,16 @@ class ChambreController extends Controller
             'prixBase' => 50
         ]);
         //$chambre = new Chambre;
-        $chambre->porte='C';
+        $chambre->porte = 'C';
         //$chambre->etage=$request->etage;
         $chambre->save();
+        return null;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -104,7 +103,7 @@ class ChambreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -115,8 +114,8 @@ class ChambreController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -127,7 +126,7 @@ class ChambreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Categorie extends Model
 {
     use HasFactory;
+
     protected $table = "otelo_categorie";
     protected $fillable = [
-        'categorie_id','libelle'
+        'categorie_id', 'libelle'
     ];
 
-    public function chambres(){
+    public function chambres()
+    {
         return $this->hasMany('App\Models\Chambre');
-      }
+    }
 }

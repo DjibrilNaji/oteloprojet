@@ -10,11 +10,12 @@
 <body>
 @if (Auth::check())
         <div class="banner">
-                <div class="navbar"> 
+                <div class="navbar">
                         <img src="/img/logo.png" class="logo">
                         <ul>
                                 <li><a href="newreservation">Réservation</a></li>
                                 <li><a href="deconnexion">Deconnexion</a></li>
+                                <li><a href="route">Routes</a></li>
                         </ul>
                 </div>
 
@@ -28,7 +29,7 @@
 
 @if (!Auth::check())
         <div class="banner">
-                <div class="navbar"> 
+                <div class="navbar">
                         <img src="/img/logo.png" class="logo">
                         <ul>
                                 <li><a href="newreservation">Réservation</a></li>

@@ -10,11 +10,13 @@ class Chambre extends Model
     use HasFactory;
 
     protected $table = "otelo_chambre";
-     protected $fillable = [
-        'nbCouchage' ,'porte','etage','categorie_id','baignoire','prixBase'
+    protected $fillable = [
+        'nbCouchage', 'porte', 'etage', 'categorie_id', 'baignoire', 'prixBase'
     ];
 
-    public function categorie(){
+    public function categorie()
+    {
         return $this->belongsTo('App\Models\Categorie');
     }
+
 }

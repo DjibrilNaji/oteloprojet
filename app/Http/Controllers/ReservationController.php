@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Reservation ;
+use App\Models\Reservation;
 
 class ReservationController extends Controller
 {
@@ -20,45 +20,45 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        return view('createReservation');    
+        return view('createReservation');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'dated' => 'required|date|before:datef',
             'datef' => 'required|date|after:dated',
-            'idperiode'=> 'required|between:1,3'
-      ]);
-      
-        $reservation=new Reservation();
-        $dated=$request->input('dated');
-        $datef=$request->input('datef');
-        $idperiode=$request->input('idperiode');
-        $reservation->dateD=$dated;
-        $reservation->dateF=$datef;
-        $reservation->idPeriode=$idperiode;
+            'idperiode' => 'required|between:1,3'
+        ]);
+
+        $reservation = new Reservation();
+        $dated = $request->input('dated');
+        $datef = $request->input('datef');
+        $idperiode = $request->input('idperiode');
+        $reservation->dateD = $dated;
+        $reservation->dateF = $datef;
+        $reservation->idPeriode = $idperiode;
 
         // var_dump($dated,$datef,$idperiode);
 
         $reservation->save();
-        return redirect()->back();    
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -69,7 +69,7 @@ class ReservationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -80,8 +80,8 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -92,7 +92,7 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

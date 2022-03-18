@@ -1,8 +1,18 @@
-<?php 
-namespace App\Http\Controllers; 
-use App\Http\Controllers\Controller; 
+<?php
 
-class PremierController extends Controller{ 
-   public function home(){ 
-     return view('accueil'); 
-} }
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+
+class PremierController extends Controller
+{
+    public function home()
+    {
+        return view('accueil');
+    }
+
+    public function route()
+    {
+        return view('allRoutes');
+    }
+}

@@ -19,6 +19,7 @@ use App\Http\Controllers\ProprietaireController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/route', [PremierController::class, 'route'])->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,41 +29,39 @@ Route::get('/accueil', function () {
     return view('accueil');
 });
 
-Route::get('/accueil',[PremierController::class, 'home'] );
+Route::get('/accueil', [PremierController::class, 'home']);
 
-Route::get('/chambre',[ChambreController::class, 'store'] );
+Route::get('/chambre', [ChambreController::class, 'store']);
 
 
-Route::get('/failure',function () {
+Route::get('/failure', function () {
     return view('authentification');
 })->name('failure');
 
-Route::get('/newreservation',[ReservationController::class, 'create'] )->middleware('auth');
+Route::get('/newreservation', [ReservationController::class, 'create'])->middleware('auth');
 
-Route::post('/storereservation',[ReservationController::class, 'store'] )->name('reservation.store');
+Route::post('/storereservation', [ReservationController::class, 'store'])->name('reservation.store');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/deconnexion',function () {
+Route::get('/deconnexion', function () {
     Auth::logout();
-     return redirect('/accueil');
+    return redirect('/accueil');
 });
 
-Route::get('/chambres',[ChambreController::class, 'index'] )->middleware('auth');
+Route::get('/chambres', [ChambreController::class, 'index'])->middleware('auth');
 
-Route::get('/chambres2',[ChambreController::class, 'index2'] )->middleware('auth');
+Route::get('/chambres2', [ChambreController::class, 'indexPart2'])->middleware('auth');
 
-// Route::get('/newcheval',[ChevalController::class, 'create'] );
 
-// Route::post('/storecheval',[ChevalController::class, 'store'] )->name('cheval.store');
-// Auth::routes();
-
-// Route::get('/newproprietaire',[ProprietaireController::class, 'create'] );
-
-Route::get('/categorie',[ChambreController::class, 'indexOneCategorie'] )->middleware('auth');
-
-Route::post('/onecategoriereservation',[ReservationController::class, 'store'] )->name('chambre.indexOneCategorie');
+Route::get('/categorie', [ChambreController::class, 'indexOneCategorie'])->name('categorie.indexOneCategorie')->middleware('auth');;
 Auth::routes();
 
-// Route::get('/disponibilites',[ChambreController::class, 'create'] );
+Route::post('/onecategoriereservation', [ReservationController::class, 'store'])->name('chambre.indexOneCategorie')->middleware('auth');;
+Auth::routes();
+
+
+Route::get('/disponibilites', [ChambreController::class, 'dispo'])->name('categorie.dispo')->middleware('auth');;
+
+
