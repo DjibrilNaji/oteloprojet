@@ -23,7 +23,7 @@ use App\Http\Controllers\ProprietaireController;
 Route::get('/route', [PremierController::class, 'route'])->middleware('auth');
 
 Route::get('/', function () {
-    return view('accueil');
+    return view('welcome');
 });
 
 Route::get('/accueil', function () {
