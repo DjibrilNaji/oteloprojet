@@ -51,9 +51,10 @@
         <th> nbCouchage</th>
         <th> porte</th>
         <th> etage</th>
-        <th> idCategorie</th>
         <th> Categorie</th>
         <th> baignoire</th>
+        <th> prix base</th>
+        <th> descritpion </th>
         <!--        <th> prixBase</th>-->
 
     </tr>
@@ -68,6 +69,8 @@
         <td> {{$chambre->etage}}</td>
         <td>{{$chambre->libelle}}</td>
         <td> {{$chambre->baignoire}}</td>
+        <td> {{$chambre->prixBase}}</td>
+        <td> {{$chambre->description}}</td>
     </tr>
     @endforeach
 

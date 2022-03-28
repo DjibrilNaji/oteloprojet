@@ -21,7 +21,15 @@
 <br/>
 <br/>
 <a class="btn btn-primary" href="disponibilites">Disponibilite</a>
-
+<br/>
+<br/>
+<a class="btn btn-primary" href="prixDecroissant">Chambre de la moins cher a la plus cher</a>
+<br/>
+<br/>
+<a class="btn btn-primary" href="addCategorie">Formulaire ajout d'une categorie</a>
+<br/>
+<br/>
+<a class="btn btn-primary" href="vueSurMer">Chambre avec vue sur mer</a>
 
 
 

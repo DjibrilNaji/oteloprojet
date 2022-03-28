@@ -11,7 +11,7 @@ class Chambre extends Model
 
     protected $table = "otelo_chambre";
     protected $fillable = [
-        'nbCouchage', 'porte', 'etage', 'categorie_id', 'baignoire', 'prixBase'
+        'nbCouchage', 'porte', 'etage', 'categorie_id', 'baignoire', 'prixBase', 'description'
     ];
 
     public function categorie()

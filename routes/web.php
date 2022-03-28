@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategorieController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PremierController;
@@ -22,7 +23,7 @@ use App\Http\Controllers\ProprietaireController;
 Route::get('/route', [PremierController::class, 'route'])->middleware('auth');
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('accueil');
 });
 
 Route::get('/accueil', function () {
@@ -54,14 +55,23 @@ Route::get('/chambres', [ChambreController::class, 'index'])->middleware('auth')
 
 Route::get('/chambres2', [ChambreController::class, 'indexPart2'])->middleware('auth');
 
-
 Route::get('/categorie', [ChambreController::class, 'indexOneCategorie'])->name('categorie.indexOneCategorie')->middleware('auth');;
 Auth::routes();
 
 Route::post('/onecategoriereservation', [ReservationController::class, 'store'])->name('chambre.indexOneCategorie')->middleware('auth');;
 Auth::routes();
 
-
 Route::get('/disponibilites', [ChambreController::class, 'dispo'])->name('categorie.dispo')->middleware('auth');;
 
+Route::get('/vueSurMer', [ChambreController::class, 'vueSurMer'])->middleware('auth');
 
+Route::get('/addCategorie', [CategorieController::class, 'create'])->middleware('auth');
+
+Route::post('/oneaddcategorie', [CategorieController::class, 'store'])->name('categorie.store')->middleware('auth');
+Auth::routes();
+
+Route::get('/prixDecroissant', [ChambreController::class, 'prixDecroissant'])->middleware('auth');
+
+Route::get('/mentions', function () {
+    return view('mentionLegale');
+});

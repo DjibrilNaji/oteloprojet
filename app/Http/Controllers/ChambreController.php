@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Chambre;
@@ -12,7 +16,7 @@ class ChambreController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
 
     public function index()
@@ -32,6 +36,21 @@ class ChambreController extends Controller
         return view('chambres2', ['chambres2' => $chambres2, 'categories' => $categories]);
     }
 
+    public function prixDecroissant()
+    {
+        $categories = Categorie::all();
+        $chambres2 = DB::select('SELECT * FROM otelo_chambre order by prixBase');
+        // $users = DB::select('select * from users where active = ?', [1]); // parametres pour ?
+        return view('prixDecroissant', ['chambres2' => $chambres2, 'categories' => $categories]);
+    }
+
+    public function vueSurMer()
+    {
+        $categories = Categorie::all();
+        $chambres2 = DB::select('select * from otelo_chambre where description="Mer"');
+        return view('vueSurMer', ['chambres2' => $chambres2, 'categories' => $categories]);
+    }
+
     public function indexOneCategorie(Request $request)
     {
         $categorie_id = $request->input('categorie_id');
@@ -47,7 +66,7 @@ class ChambreController extends Controller
         $dateF = $request->input('datef');
 
         $categories = Categorie::all();
-        $disponibilite = DB::select('select id, nbCouchage, porte, etage, libelle, baignoire from otelo_chambre inner join otelo_categorie on otelo_chambre.categorie_id= otelo_categorie.categorie_id
+        $disponibilite = DB::select('select id, nbCouchage, porte, etage, libelle, baignoire, prixBase, description from otelo_chambre inner join otelo_categorie on otelo_chambre.categorie_id= otelo_categorie.categorie_id
         where otelo_chambre.categorie_id=? and otelo_chambre.id not in (select otelo_reservation.idChambre from otelo_reservation
         where dateD>=? and dateD<=dateF and dateF<=? and dateF>=dateD) order by id;', [$categorie_id, $dateD, $dateF]);
 //        dd($dispo);
@@ -59,7 +78,7 @@ class ChambreController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -69,8 +88,8 @@ class ChambreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response|null
      */
     public function store(Request $request)
     {
@@ -93,9 +112,9 @@ class ChambreController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function show($id)
+    public function show(int $id)
     {
         //
     }
@@ -104,9 +123,9 @@ class ChambreController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         //
     }
@@ -114,9 +133,9 @@ class ChambreController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -127,7 +146,7 @@ class ChambreController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

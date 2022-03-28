@@ -11,6 +11,6 @@ class Reservation extends Model
 
     protected $table = "otelo_reservation";
     protected $fillable = [
-        'dateD', 'dateF', 'idPeriode'
+        'dateD', 'dateF', 'idPeriode', 'idChambre'
     ];
 }

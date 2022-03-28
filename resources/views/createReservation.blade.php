@@ -37,7 +37,16 @@
             <label for="exampleInputDate1">Date Fin</label>
             <input name="datef" type="date" class="form-control" id="exampleInputDateF1">
         </div>
-
+        <div class="form-group">
+            <label for="sel1">Sélectionnez la catégorie</label>
+            <select name="categorie_id" class="form-control" id="sel1">
+                <option value=1>Standard</option>
+                <option value=2>Confort</option>
+                <option value=3>Premium</option>
+                <option value=4>Luxe</option>
+                <option value=5>Raffraichir</option>
+            </select>
+        </div>
         <div class="form-group">
             <label for="sel1">Sélectionner la période : </label>
             <select name="idperiode" class="form-control" id="sel1">
