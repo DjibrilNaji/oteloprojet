@@ -76,18 +76,19 @@ class ReservationController extends Controller
         $periode = $request->input('idperiode');
         $categorie_id = $request->input('categorie_id');
 
+
+
         $disponibilite = DB::select('select id from otelo_chambre inner join otelo_categorie on otelo_chambre.categorie_id=otelo_categorie.categorie_id
         where otelo_chambre.categorie_id=? and otelo_chambre.id not in (select otelo_reservation.idChambre from otelo_reservation
-        where dateD>=? and dateD<=dateF and dateF<=? and dateF>=dateD) order by id limit 1;', [2, "2022-03-26", "2022-03-27"]);
+        where (?<=dateF and ?>=dateD ) or (?>=dateD and ?<=dateF)) order by id limit 1;',
+            [$categorie_id, $dateD, $dateD, $dateF, $dateF]);
+//        dd($disponibilite[0]->id);
 
-//        dd($disponibilite[0]);
-
-        var_dump($disponibilite[0]);
-
-//        $dispo = json_decode(json_encode($disponibilite[0]), true);
+        $client = DB::select('SELECT id from otelo_users where email="najidjibril@gmail.com"');
+//        dd($client);
 
         DB::insert("INSERT INTO otelo_reservation (dateD, dateF, idPeriode, idChambre, idUser)
-        VALUES (?,?,?,?,?)", ["2022-03-26", "2022-03-27", 2, $disponibilite[0], 3]);
+        VALUES (?,?,?,?,?)", [$dateD, $dateF, $periode, $disponibilite[0]->id, 3]);
 
         return redirect()->back();
     }

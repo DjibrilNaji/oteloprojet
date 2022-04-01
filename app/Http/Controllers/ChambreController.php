@@ -66,12 +66,12 @@ class ChambreController extends Controller
         $dateF = $request->input('datef');
 
         $categories = Categorie::all();
-        $disponibilite = DB::select('select id, nbCouchage, porte, etage, libelle, baignoire, prixBase, description from otelo_chambre inner join otelo_categorie on otelo_chambre.categorie_id= otelo_categorie.categorie_id
-        where otelo_chambre.categorie_id=? and otelo_chambre.id not in (select otelo_reservation.idChambre from otelo_reservation
-        where dateD>=? and dateD<=dateF and dateF<=? and dateF>=dateD) order by id;', [$categorie_id, $dateD, $dateF]);
-//        dd($dispo);
+        $disponibilite = DB::select('select id, nbCouchage, porte, etage, libelle, baignoire, prixBase, description from otelo_chambre
+        inner join otelo_categorie on otelo_chambre.categorie_id=otelo_categorie.categorie_id where otelo_chambre.categorie_id=? and otelo_chambre.id not in
+        (select otelo_reservation.idChambre from otelo_reservation where (?<=dateF and ?>=dateD) or (?>=dateD and ?<=dateF)) order by id ;',
+            [$categorie_id, $dateD, $dateD, $dateF, $dateF]);
+
         return view('dispo', ['disponibilite' => $disponibilite, 'categories' => $categories]);
-//        return response()->json($chambres);
     }
 
 
