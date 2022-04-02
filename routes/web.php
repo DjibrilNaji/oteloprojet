@@ -30,10 +30,9 @@ Route::get('/accueil', function () {
     return view('accueil');
 });
 
-Route::get('/accueil', [PremierController::class, 'home']);
+Route::get('/accueil', [PremierController::class, 'home'])->name('accueil');
 
 Route::get('/chambre', [ChambreController::class, 'store']);
-
 
 Route::get('/failure', function () {
     return view('authentification');

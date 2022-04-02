@@ -7,10 +7,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Models\Reservation;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use PDO;
 
 class ReservationController extends Controller
 {
@@ -76,21 +74,19 @@ class ReservationController extends Controller
         $periode = $request->input('idperiode');
         $categorie_id = $request->input('categorie_id');
 
-
-
         $disponibilite = DB::select('select id from otelo_chambre inner join otelo_categorie on otelo_chambre.categorie_id=otelo_categorie.categorie_id
         where otelo_chambre.categorie_id=? and otelo_chambre.id not in (select otelo_reservation.idChambre from otelo_reservation
         where (?<=dateF and ?>=dateD ) or (?>=dateD and ?<=dateF)) order by id limit 1;',
             [$categorie_id, $dateD, $dateD, $dateF, $dateF]);
 //        dd($disponibilite[0]->id);
 
-        $client = DB::select('SELECT id from otelo_users where email="najidjibril@gmail.com"');
-//        dd($client);
+        $client = DB::select('select id from otelo_users where email="najidjibril@gmail.com"');
+//        dd($client[0]->id);
 
         DB::insert("INSERT INTO otelo_reservation (dateD, dateF, idPeriode, idChambre, idUser)
-        VALUES (?,?,?,?,?)", [$dateD, $dateF, $periode, $disponibilite[0]->id, 3]);
+        VALUES (?,?,?,?,?)", [$dateD, $dateF, $periode, $disponibilite[0]->id, $client[0]->id]);
 
-        return redirect()->back();
+        return redirect()->route('accueil')->with('success','réservation enregistrée');
     }
 
     /**
@@ -99,6 +95,7 @@ class ReservationController extends Controller
      * @param int $id
      * @return Response
      */
+
     public function show(int $id)
     {
         //
