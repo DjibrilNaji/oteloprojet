@@ -13,6 +13,11 @@ body {
     background-position: center;
 }
 
+.alert2 {
+    width:20%;
+    height: 50%;
+}
+
 .navbar {
     width: 85%;
     margin: auto;
@@ -23,7 +28,6 @@ body {
 }
 
 .logo {
-    width: 70;
     cursor: pointer;
 }
 

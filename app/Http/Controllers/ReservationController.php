@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
@@ -76,17 +77,22 @@ class ReservationController extends Controller
 
         $disponibilite = DB::select('select id from otelo_chambre inner join otelo_categorie on otelo_chambre.categorie_id=otelo_categorie.categorie_id
         where otelo_chambre.categorie_id=? and otelo_chambre.id not in (select otelo_reservation.idChambre from otelo_reservation
-        where (?<=dateF and ?>=dateD ) or (?>=dateD and ?<=dateF)) order by id limit 1;',
-            [$categorie_id, $dateD, $dateD, $dateF, $dateF]);
+        where (?>=dateD and ?>=dateD and ?<=dateF and ?<=dateF)
+        or (?>=dateD and ?<=dateF) or (?>=dateD and ?<=dateF)
+        or (?<=dateD and ?>=dateF)) order by id limit 1;',
+            [$categorie_id, $dateD, $dateF, $dateD, $dateF, $dateD, $dateD, $dateF, $dateF, $dateD, $dateF]);
+
 //        dd($disponibilite[0]->id);
 
-        $client = DB::select('select id from otelo_users where email="najidjibril@gmail.com"');
-//        dd($client[0]->id);
+        $a = Auth::user()->email;
+//        dd($a);
+        $client = DB::select("select id from otelo_users where email='" . $a . "'");
+
 
         DB::insert("INSERT INTO otelo_reservation (dateD, dateF, idPeriode, idChambre, idUser)
         VALUES (?,?,?,?,?)", [$dateD, $dateF, $periode, $disponibilite[0]->id, $client[0]->id]);
 
-        return redirect()->route('accueil')->with('success','réservation enregistrée');
+        return redirect()->route('accueil')->with('success', 'réservation enregistrée');
     }
 
     /**
