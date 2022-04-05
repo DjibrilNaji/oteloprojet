@@ -20,18 +20,10 @@
     </div>
 
     @if(session('success'))
-    <div class="alert2 alert-success col-md-3" role="alert">
+    <div class="alert alert-success mt-2">
         {{session('success')}}
     </div>
     @endif
-
-    @if(session('failure'))
-    <div class="alert2 alert-danger" role="alert" >
-        {{session('failure')}}
-    </div>
-    @endif
-
-
 
     <div class="content">
         <h1>HOTEL HOKELE</h1>

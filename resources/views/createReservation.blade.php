@@ -44,7 +44,6 @@
                 <option value=2>Confort</option>
                 <option value=3>Premium</option>
                 <option value=4>Luxe</option>
-                <option value=5>Raffraichir</option>
             </select>
         </div>
         <div class="form-group">
