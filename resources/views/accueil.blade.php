@@ -5,15 +5,17 @@
 <!doctype html>
 <head>
     <meta charset="UTF-8">
+    <title>Accueil</title>
 </head>
 
 <body>
 @if (Auth::check())
 <div class="banner">
     <div class="navbar">
-        <img src="/img/logo.png" class="logo">
+        <img src="/img/logo.png" class="logo" alt="logo">
         <ul>
             <li><a href="newreservation">Réservation</a></li>
+            <li><a href="disponibilites">Disponibilité</a></li>
             <li><a href="deconnexion">Deconnexion</a></li>
             <li><a href="route">Routes</a></li>
         </ul>
@@ -28,7 +30,7 @@
     <div class="content">
         <h1>HOTEL HOKELE</h1>
         <p>L'hôtel idéal au meilleur prix !
-            </br>Vous voilà sur la page d'accueil de mon hotel "Hokele".</p>
+            <br/>Vous voilà sur la page d'accueil de mon hotel "Hokele".</p>
     </div>
 </div>
 @endif

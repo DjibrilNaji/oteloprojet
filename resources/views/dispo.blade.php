@@ -1,6 +1,6 @@
 @extends('layouts.app')
-
 @section('content')
+
 <div class="container">
 
     <form method="get" action="{{ route('categorie.dispo')}}">
@@ -54,7 +54,7 @@
         <th> Categorie</th>
         <th> baignoire</th>
         <th> prix base</th>
-        <th> descritpion </th>
+        <th> descritpion</th>
         <!--        <th> prixBase</th>-->
 
     </tr>

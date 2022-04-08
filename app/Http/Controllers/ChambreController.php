@@ -72,7 +72,7 @@ class ChambreController extends Controller
         inner join otelo_categorie on otelo_chambre.categorie_id=otelo_categorie.categorie_id
         where otelo_chambre.categorie_id=? and otelo_chambre.id not in (select otelo_reservation.idChambre
         from otelo_reservation where (?>=dateD and ?>=dateD and ?<=dateF and ?<=dateF)
-        or (?>=dateD and ?<=dateF) or (?>=dateD and ?<=dateF) or (?<=dateD and ?>=dateF)) order by id ;',
+        or (?>=dateD and ?<=dateF) or (?>=dateD and ?<=dateF) or (?<=dateD and ?>=dateF)) order by id;',
             [$categorie_id, $dateD, $dateF, $dateD, $dateF, $dateD, $dateD, $dateF, $dateF, $dateD, $dateF]);
 
         return view('dispo', ['disponibilite' => $disponibilite, 'categories' => $categories]);

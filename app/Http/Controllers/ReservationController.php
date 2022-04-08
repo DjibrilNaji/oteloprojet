@@ -88,9 +88,7 @@ class ReservationController extends Controller
 //        dd($a);
         $client = DB::select("select id from otelo_users where email='" . $a . "'");
 
-
-        DB::insert("INSERT INTO otelo_reservation (dateD, dateF, idPeriode, idChambre, idUser)
-        VALUES (?,?,?,?,?)", [$dateD, $dateF, $periode, $disponibilite[0]->id, $client[0]->id]);
+        DB::insert("INSERT INTO otelo_reservation (dateD, dateF, idPeriode, idChambre, idUser) VALUES (?,?,?,?,?)", [$dateD, $dateF, $periode, $disponibilite[0]->id, $client[0]->id]);
 
         return redirect()->route('accueil')->with('success', 'réservation enregistrée');
     }

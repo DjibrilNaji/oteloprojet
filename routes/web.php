@@ -7,9 +7,6 @@ use App\Http\Controllers\PremierController;
 use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\ReservationController;
 
-use App\Http\Controllers\ChevalController;
-use App\Http\Controllers\ProprietaireController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,6 +68,6 @@ Auth::routes();
 
 Route::get('/prixDecroissant', [ChambreController::class, 'prixDecroissant'])->middleware('auth');
 
-Route::get('/mentions', function () {
+    Route::get('/mentions', function () {
     return view('mentionLegale');
 });

@@ -1,10 +1,9 @@
 @extends('layouts.app')
-
 @section('content')
 
 <div class="banner">
     <div class="navbar">
-        <img src="/img/logo.png" class="logo">
+        <img src="/img/logo.png" class="logo" alt="">
         <ul>
             <li><a href="accueil">Accueil</a></li>
             <li><a href="deconnexion">Deconnexion</a></li>

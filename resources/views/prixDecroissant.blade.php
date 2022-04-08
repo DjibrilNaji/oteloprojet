@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 
 <div class="banner">
@@ -30,7 +29,6 @@
     </thead>
     <tbody>
 
-
     @foreach($chambres2 and $categories as $chambre)
     <tr>
         <td> {{$chambre->id}}</td>
@@ -42,11 +40,8 @@
         <td> {{$chambre->baignoire}}</td>
         <td> {{$chambre->prixBase}}</td>
         <td> {{$chambre->description}}</td>
-
-
     </tr>
     @endforeach
-
 
     </tbody>
 </table>
